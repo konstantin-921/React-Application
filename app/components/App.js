@@ -14,7 +14,7 @@ const App = () => {
         src={img}
         alt="React Logo"
       />
-       <MyButton color="red">Button</MyButton>
+      <MyButton color="red">Button</MyButton>
     </div>
   );
 };
