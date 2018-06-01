@@ -1,6 +1,7 @@
 import React from 'react';
-import img from '../assets/images/react_logo_512x512.png';
-import MyButton from './MyButton';
+import img from '../../assets/images/react_logo_512x512.png';
+import MyButton from '../MyButton/index';
+import Hello from '../Hello/index';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         alt="React Logo"
       />
       <MyButton color="red">Button</MyButton>
+      <Hello color="green" />
     </div>
   );
 };

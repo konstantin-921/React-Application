@@ -44,6 +44,13 @@ const config = {
         loader: "eslint-loader"
       },
       {
+        test: /\.js$/,
+        use: [
+          'source-map-loader',
+        ],
+        enforce: "pre"
+      },
+      {
         test: /\.jsx?$/,
         loaders: [
           'babel-loader',
