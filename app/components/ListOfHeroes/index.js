@@ -34,8 +34,9 @@ class ListOfHeroes extends React.Component {
 
   render() {
     const heroes = this.renderHeroes();
+    const render = (this.state.loading === false) ? heroes : <Loader />;
     return (
-      <Loader loading={this.state.loading} heroes={heroes} />
+      <div>{render}</div>
     );
   }
 }
