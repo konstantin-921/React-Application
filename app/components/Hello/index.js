@@ -1,6 +1,6 @@
 import React from 'react';
 import ListOfHeroes from '../ListOfHeroes/index';
-import './style.scss';
+// import './main.scss';
 
 class Hello extends React.Component {
   constructor(props) {
