@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ItemHero from './ItemHero/index';
-import Loader from './Loader/index';
+import Loader from '../Loader/index';
 
 class ListOfHeroes extends React.Component {
   constructor(props) {
@@ -9,7 +9,6 @@ class ListOfHeroes extends React.Component {
     this.state = {
       heroes: [],
       loading: true,
-      // open: false,
     };
   }
 
@@ -34,7 +33,7 @@ class ListOfHeroes extends React.Component {
 
   render() {
     const heroes = this.renderHeroes();
-    const render = (this.state.loading === false) ? heroes : <Loader />;
+    const render = (this.state.loading === false) ? heroes : <Loader text="Loading data..." />;
     return (
       <div>{render}</div>
     );

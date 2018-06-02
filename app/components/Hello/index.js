@@ -1,11 +1,12 @@
 import React from 'react';
 import ListOfHeroes from '../ListOfHeroes/index';
+import './style.scss';
 
 class Hello extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      welcome: 'Добро пожаловать на сайт!',
+      welcome: 'Welcome!',
       class: 'link off',
     };
     this.press = this.press.bind(this);
@@ -20,11 +21,11 @@ class Hello extends React.Component {
   render() {
     const { color } = this.props;
     const linkStyle = { color };
-    const text = (this.state.class === 'link off') ? this.state.welcome : 'И всего доброго!';
+    const text = (this.state.class === 'link off') ? this.state.welcome : 'Goodbye and good luck!';
     const list = (this.state.class === 'link off') ? null : <ListOfHeroes />;
     return (
       <div>
-        <a href="/#" onClick={this.press} className={this.state.class} style={linkStyle}>{ text }</a>
+        <a href="/#" onClick={this.press} className={this.state.class} style={linkStyle}>{text}</a>
         {list}
       </div>
     );

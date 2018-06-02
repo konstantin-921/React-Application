@@ -1,6 +1,6 @@
 import React from 'react';
 import img from '../../assets/images/react_logo_512x512.png';
-import MyButton from '../MyButton/index';
+import MyButton from '../button/index';
 import Hello from '../Hello/index';
 
 const App = () => {
