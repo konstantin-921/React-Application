@@ -10,9 +10,12 @@ class ItemHero extends React.PureComponent {
     this.clickHundler = this.clickHundler.bind(this);
   }
   clickHundler() {
+    const { changeOpen } = this.props;
+    const { hero: { name } } = this.props;
     const switcher = !this.state.isOpen;
     const value = (this.state.buttonText === 'Open') ? 'Close' : 'Open';
     this.setState({ buttonText: value, isOpen: switcher });
+    changeOpen(switcher, name);
   }
   render() {
     const buttonStyle = {
