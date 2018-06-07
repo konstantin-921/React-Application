@@ -1,4 +1,5 @@
 import React from 'react';
+import hocAddFilms from '../HocAddFilms/index';
 
 class ItemHero extends React.PureComponent {
   constructor(props) {
@@ -22,8 +23,9 @@ class ItemHero extends React.PureComponent {
       width: 60,
       height: 25,
     };
+    const { films } = this.props;
     const { hero: { name, height, mass } } = this.props;
-    const renderData = (this.state.isOpen === true) ? <p>{height} {mass}</p> : null;
+    const renderData = (this.state.isOpen === true) ? <p style={{ color: 'darkblue' }}>{height} {mass} {films}</p> : null;
     return (
       <div>
         <h2>{name}</h2>
@@ -34,4 +36,4 @@ class ItemHero extends React.PureComponent {
   }
 }
 
-export default ItemHero;
+export default hocAddFilms(ItemHero);
