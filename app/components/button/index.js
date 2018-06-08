@@ -7,11 +7,16 @@ class MyInput extends React.Component {
       search: '',
     };
     this.update = this.update.bind(this);
+    // this.clear = this.clear.bind(this);
   }
 
   update(event) {
     this.setState({ search: event.target.value.substr(0, 10) });
   }
+
+  // clear(event) {
+  //   this.state({search: event.target.value.});
+  // }
 
   render() {
     return (
@@ -22,6 +27,7 @@ class MyInput extends React.Component {
           value={this.state.search}
           placeholder="Max 10 symbols"
           onChange={this.update}
+          // blur={this.clear}
         />
         <div>{this.state.search}</div>
       </div>);

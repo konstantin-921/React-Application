@@ -8,7 +8,7 @@ class ListOfHeroes extends React.Component {
     super(props);
     this.state = {
       arrayHeroes: [],
-      renderState: '',
+      renderState: {},
     };
     this.handleChangeOpen = this.handleChangeOpen.bind(this);
     this.showAllState = this.showAllState.bind(this);
@@ -16,38 +16,39 @@ class ListOfHeroes extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
-    const { heroes } = nextProps;
-    const array = heroes.slice();
-    for (let i = 0; i < array.length; i += 1) {
-      array[i].isOpen = false;
+    if (nextProps.heroes !== this.state.arrayHeroes) {
+      const { heroes } = nextProps;
+      const renderState = {};
+      heroes.forEach((element) => {
+        renderState[element.name] = false;
+      });
+      this.setState({ renderState, arrayHeroes: heroes });
     }
-    this.setState({ arrayHeroes: array });
   }
 
   handleChangeOpen(flag, name) {
-    for (let i = 0; i < this.state.arrayHeroes.length; i += 1) {
-      if (this.state.arrayHeroes[i].name === name) {
-        this.state.arrayHeroes[i].isOpen = flag;
-      }
-    }
+    const renderState = Object.assign({}, this.state.renderState);
+    renderState[name] = flag;
+    this.setState({ renderState });
   }
 
   showAllState() {
-    const array = this.state.arrayHeroes.map((element) => {
-      return (
-        <div key={element.name} style={{ color: 'darkgreen' }}>
-          {element.name}
-          <span style={{ marginLeft: 10, color: 'red' }}>
-            {`${element.isOpen}`}
-          </span>
-        </div>);
-    });
-    this.setState({ renderState: array });
+    console.log(this.state.renderState);
+    // const array = this.state.arrayHeroes.map((element) => {
+    //   return (
+    //     <div key={element.name} style={{ color: 'darkgreen' }}>
+    //       {element.name}
+    //       <span style={{ marginLeft: 10, color: 'red' }}>
+    //         {`${element.isOpen}`}
+    //       </span>
+    //     </div>);
+    // });
+    // this.setState({ renderState: array });
   }
 
   renderHeroes() {
-    const { heroes } = this.props;
-    return heroes.map((hero) => {
+    const { arrayHeroes } = this.state;
+    return arrayHeroes.map((hero) => {
       return (
         <ItemHero
           changeOpen={this.handleChangeOpen}
@@ -65,7 +66,7 @@ class ListOfHeroes extends React.Component {
     return (
       <div>
         <button onClick={this.showAllState}>Show state</button>
-        <div>{this.state.renderState}{render}</div>
+        <div>{render}</div>
       </div>
     );
   }
