@@ -45,7 +45,7 @@ class ContainerHeroes extends React.Component {
         )}
       </main>);
     return (
-      <div style={{ overflow: 'hidden', height: 300 }}>
+      <div style={{ overflow: 'hidden', height: 200 }}>
         <a href="/#" onClick={this.press} className={this.state.class} style={linkStyle}>{text}</a>
         {list}
         <p>Hidden zone</p>

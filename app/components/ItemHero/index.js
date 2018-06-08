@@ -25,7 +25,7 @@ class ItemHero extends React.PureComponent {
     };
     const { films } = this.props;
     const { hero: { name, height, mass } } = this.props;
-    const renderData = (this.state.isOpen === true) ? <p style={{ color: 'darkblue' }}>{height} {mass} {films}</p> : null;
+    const renderData = (this.state.isOpen === true) ? <p style={{ color: 'darkred' }}>{`Height: ${height}`} <br /> {`Mass: ${mass}`} <br /> {`Acted in the film:  ${films}`}</p> : null;
     return (
       <div>
         <h2>{name}</h2>
