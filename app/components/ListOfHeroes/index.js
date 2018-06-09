@@ -34,16 +34,6 @@ class ListOfHeroes extends React.Component {
 
   showAllState() {
     console.log(this.state.renderState);
-    // const array = this.state.arrayHeroes.map((element) => {
-    //   return (
-    //     <div key={element.name} style={{ color: 'darkgreen' }}>
-    //       {element.name}
-    //       <span style={{ marginLeft: 10, color: 'red' }}>
-    //         {`${element.isOpen}`}
-    //       </span>
-    //     </div>);
-    // });
-    // this.setState({ renderState: array });
   }
 
   renderHeroes() {

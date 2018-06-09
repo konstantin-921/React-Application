@@ -1,6 +1,6 @@
 import React from 'react';
 import img from '../../assets/images/react_logo_512x512.png';
-import MyInput from '../button/index';
+import MyInput from '../MyInput/index';
 import ContainerHeroes from '../ContainerHeroes/index';
 
 const App = () => {
