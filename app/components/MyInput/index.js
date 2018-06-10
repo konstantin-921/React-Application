@@ -25,7 +25,7 @@ class MyInput extends React.Component {
 
   addListItem() {
     if (this.state.search !== '' && this.state.list.includes(this.state.search) !== true) {
-      const list = this.state.list.concat(this.state.search);
+      const list = [...this.state.list, this.state.search];
       this.setState({ list });
     } else {
       console.error('An array already contains this element');

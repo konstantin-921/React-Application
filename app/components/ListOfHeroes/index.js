@@ -18,6 +18,7 @@ class ListOfHeroes extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.heroes !== this.state.arrayHeroes) {
       const { heroes } = nextProps;
+      console.log(heroes);
       const renderState = {};
       heroes.forEach((element) => {
         renderState[element.name] = false;
@@ -27,7 +28,7 @@ class ListOfHeroes extends React.Component {
   }
 
   handleChangeOpen(flag, name) {
-    const renderState = Object.assign({}, this.state.renderState);
+    const renderState = { ...this.state.renderState };
     renderState[name] = flag;
     this.setState({ renderState });
   }
@@ -62,14 +63,13 @@ class ListOfHeroes extends React.Component {
   }
 }
 
-ListOfHeroes.defaultProps = {
-  loading: false,
-  heroes: [],
-};
-
 ListOfHeroes.propTypes = {
-  loading: PropTypes.bool,
-  heroes: PropTypes.arrayOf(PropTypes.object),
+  loading: PropTypes.bool.isRequired,
+  heroes: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    mass: PropTypes.string,
+    height: PropTypes.string,
+  })).isRequired,
 };
 
 export default ListOfHeroes;

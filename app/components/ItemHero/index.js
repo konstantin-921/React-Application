@@ -11,8 +11,7 @@ class ItemHero extends React.PureComponent {
     this.clickHundler = this.clickHundler.bind(this);
   }
   clickHundler() {
-    const { changeOpen } = this.props;
-    const { hero: { name } } = this.props;
+    const { changeOpen, hero: { name } } = this.props;
     const switcher = !this.state.isOpen;
     const value = (this.state.buttonText === 'Open') ? 'Close' : 'Open';
     this.setState({ buttonText: value, isOpen: switcher });
@@ -23,8 +22,7 @@ class ItemHero extends React.PureComponent {
       width: 60,
       height: 25,
     };
-    const { films } = this.props;
-    const { hero: { name, height, mass } } = this.props;
+    const { films, hero: { name, height, mass } } = this.props;
     const renderData = (this.state.isOpen === true) ? <p style={{ color: 'darkred' }}>{`Height: ${height}`} <br /> {`Mass: ${mass}`} <br /> {`Acted in the film:  ${films}`}</p> : null;
     return (
       <div>
