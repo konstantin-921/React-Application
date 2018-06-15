@@ -1,45 +1,40 @@
+import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { addActiveHero } from '../../redux/action/index';
 import ItemHero from '../ItemHero/index';
 import Loader from '../Loader/index';
+
+const mapStateToProps = ({ filter }) => ({
+  filter,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addActiveHero: list => dispatch(addActiveHero(list)),
+});
 
 class ListOfHeroes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrayHeroes: [],
-      renderState: {},
     };
     this.handleChangeOpen = this.handleChangeOpen.bind(this);
     this.showAllState = this.showAllState.bind(this);
   }
 
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.heroes !== this.state.arrayHeroes) {
-      const { heroes } = nextProps;
-      console.log(heroes);
-      const renderState = {};
-      heroes.forEach((element) => {
-        renderState[element.name] = false;
-      });
-      this.setState({ renderState, arrayHeroes: heroes });
-    }
-  }
-
   handleChangeOpen(flag, name) {
-    const renderState = { ...this.state.renderState };
-    renderState[name] = flag;
-    this.setState({ renderState });
+    const activeHero = {};
+    activeHero[name] = flag;
+    this.props.addActiveHero(activeHero);
   }
 
   showAllState() {
-    console.log(this.state.renderState);
+    console.log(this.props.filter.activeHero);
   }
 
   renderHeroes() {
-    const { arrayHeroes } = this.state;
-    return arrayHeroes.map((hero) => {
+    const { filter: { heroes } } = this.props;
+    return heroes.map((hero) => {
       return (
         <ItemHero
           changeOpen={this.handleChangeOpen}
@@ -65,11 +60,6 @@ class ListOfHeroes extends React.Component {
 
 ListOfHeroes.propTypes = {
   loading: PropTypes.bool.isRequired,
-  heroes: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    mass: PropTypes.string,
-    height: PropTypes.string,
-  })).isRequired,
 };
 
-export default ListOfHeroes;
+export default connect(mapStateToProps, mapDispatchToProps)(ListOfHeroes);
