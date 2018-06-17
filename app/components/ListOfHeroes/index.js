@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { addActiveHero } from '../../redux/action/index';
 import ItemHero from '../ItemHero/index';
 import Loader from '../Loader/index';
@@ -58,8 +58,8 @@ class ListOfHeroes extends React.Component {
   }
 }
 
-ListOfHeroes.propTypes = {
-  loading: PropTypes.bool.isRequired,
-};
+// ListOfHeroes.propTypes = {
+//   loading: PropTypes.bool.isRequired,
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListOfHeroes);

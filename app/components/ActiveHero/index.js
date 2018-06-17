@@ -26,7 +26,6 @@ class ActiveHero extends React.Component {
 
   render() {
     const render = this.props.filter.activeHero ? this.renderObject() : 'Oops';
-    console.log(render);
     return (
       <div>{render}</div>
     );

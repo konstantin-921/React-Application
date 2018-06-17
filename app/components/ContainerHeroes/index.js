@@ -1,17 +1,12 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import axios from 'axios';
 import ActiveHero from '../ActiveHero/index';
-import { addHero } from '../../redux/action/index';
+import { getHeroes, request } from '../../redux/action/index';
 import ListOfHeroes from '../ListOfHeroes/index';
 
 const mapStateToProps = ({ filter }) => ({
   filter,
-});
-
-const mapDispatchToProps = dispatch => ({
-  addHero: array => dispatch(addHero(array)),
 });
 
 class ContainerHeroes extends Component {
@@ -20,26 +15,16 @@ class ContainerHeroes extends Component {
     this.state = {
       welcome: 'Welcome!',
       class: 'link off',
-      loading: true,
     };
     this.press = this.press.bind(this);
   }
 
-  componentDidMount() {
-    axios.get('https://swapi.co/api/people/')
-      .then((response) => {
-        this.setState({
-          loading: false,
-        });
-        this.props.addHero(response.data.results);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 
   press() {
     const className = (this.state.class === 'link off') ? 'link on' : 'link off';
+    const { dispatch } = this.props;
+    dispatch(request());
+    dispatch(getHeroes());
     this.setState({ class: className });
   }
 
@@ -50,7 +35,7 @@ class ContainerHeroes extends Component {
     const list = (this.state.class === 'link off') ? null : (
       <main>
         {ReactDom.createPortal(
-          <ListOfHeroes loading={this.state.loading} />,
+          <ListOfHeroes loading={this.props.filter.loading} />,
           document.getElementById('portal'),
         )}
       </main>);
@@ -67,5 +52,5 @@ class ContainerHeroes extends Component {
 
 ContainerHeroes.defaultProps = { color: 'red' };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContainerHeroes);
+export default connect(mapStateToProps)(ContainerHeroes);
 
