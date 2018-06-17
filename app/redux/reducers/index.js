@@ -19,6 +19,12 @@ const filter = (state = initialState, action) => {
         ...state,
         activeHero: Object.assign({}, state.activeHero, action.list),
       };
+    case 'CLEAR_HEROES':
+      return {
+        ...state,
+        heroes: [],
+        activeHero: {},
+      };
     default:
       return state;
   }

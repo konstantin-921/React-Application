@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import ActiveHero from '../ActiveHero/index';
-import { getHeroes, request } from '../../redux/action/index';
+import { getHeroes, request, clearHeroes } from '../../redux/action/index';
 import ListOfHeroes from '../ListOfHeroes/index';
 
 const mapStateToProps = ({ filter }) => ({
@@ -23,6 +23,7 @@ class ContainerHeroes extends Component {
   press() {
     const className = (this.state.class === 'link off') ? 'link on' : 'link off';
     const { dispatch } = this.props;
+    dispatch(clearHeroes());
     dispatch(request());
     dispatch(getHeroes());
     this.setState({ class: className });

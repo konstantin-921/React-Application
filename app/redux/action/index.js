@@ -6,6 +6,12 @@ export const request = () => {
   };
 };
 
+export const clearHeroes = () => {
+  return {
+    type: 'CLEAR_HEROES',
+  };
+};
+
 export const addHero = (array) => {
   return {
     type: 'ADD_HERO',
