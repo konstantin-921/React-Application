@@ -16,10 +16,10 @@ const filter = (state = initialState, action) => {
         loading: false,
       };
     case 'ADD_ACTIVE_HERO':
-      if (state.nameHeroes.findIndex((elem) => { return elem === data; })) {
-        return { ...state, nameHeroes: state.nameHeroes.concat(data) };
+      if (state.nameHeroes.includes(data)) {
+        return state;
       }
-      return state;
+      return { ...state, nameHeroes: state.nameHeroes.concat(data) };
     case 'DELETE_ACTIVE_HERO':
       return {
         ...state, nameHeroes: state.nameHeroes.filter((elem) => { return elem !== data; }),
