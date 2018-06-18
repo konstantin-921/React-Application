@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { addActiveHero } from '../../redux/action/index';
+import { addActiveHero, deleteActiveHero } from '../../redux/action/index';
 import ItemHero from '../ItemHero/index';
 import Loader from '../Loader/index';
 
@@ -10,7 +10,8 @@ const mapStateToProps = ({ filter }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addActiveHero: list => dispatch(addActiveHero(list)),
+  addActiveHero: data => dispatch(addActiveHero(data)),
+  deleteActiveHero: data => dispatch(deleteActiveHero(data)),
 });
 
 class ListOfHeroes extends React.Component {
@@ -23,9 +24,11 @@ class ListOfHeroes extends React.Component {
   }
 
   handleChangeOpen(flag, name) {
-    const activeHero = {};
-    activeHero[name] = flag;
-    this.props.addActiveHero(activeHero);
+    if (flag) {
+      this.props.addActiveHero(name);
+    } else if (!flag) {
+      this.props.deleteActiveHero(name);
+    }
   }
 
   showAllState() {

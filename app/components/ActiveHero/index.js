@@ -13,19 +13,16 @@ class ActiveHero extends React.Component {
   }
 
   renderObject() {
-    const obj = Object.entries(this.props.filter.activeHero);
+    const obj = this.props.filter.nameHeroes;
     return obj.map((elem) => {
-      if (elem[1] === true) {
-        return (
-          <div style={{ color: 'darkorange' }} key={elem}>{elem[0]}</div>
-        );
-      }
-      return null;
+      return (
+        <div style={{ color: 'darkorange' }} key={elem}>{elem}</div>
+      );
     });
   }
 
   render() {
-    const render = this.props.filter.activeHero ? this.renderObject() : 'Oops';
+    const render = this.props.filter.nameHeroes ? this.renderObject() : 'Oops';
     return (
       <div>{render}</div>
     );

@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 
-const initialState = { heroes: [], activeHero: {}, loading: true };
+const initialState = { heroes: [], nameHeroes: [], loading: true };
 const filter = (state = initialState, action) => {
+  const { data } = action;
   switch (action.type) {
     case 'REQUEST':
       return {
@@ -11,25 +12,28 @@ const filter = (state = initialState, action) => {
     case 'ADD_HERO':
       return {
         ...state,
-        heroes: state.heroes.concat(action.array),
+        heroes: state.heroes.concat(data),
         loading: false,
       };
     case 'ADD_ACTIVE_HERO':
+      if (state.nameHeroes.findIndex((elem) => { return elem === data; })) {
+        return { ...state, nameHeroes: state.nameHeroes.concat(data) };
+      }
+      return state;
+    case 'DELETE_ACTIVE_HERO':
       return {
-        ...state,
-        activeHero: Object.assign({}, state.activeHero, action.list),
+        ...state, nameHeroes: state.nameHeroes.filter((elem) => { return elem !== data; }),
       };
     case 'CLEAR_HEROES':
       return {
         ...state,
         heroes: [],
-        activeHero: {},
+        nameHeroes: [],
       };
     default:
       return state;
   }
 };
-
 
 const rootReducer = combineReducers({
   filter,

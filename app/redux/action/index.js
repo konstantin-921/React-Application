@@ -12,17 +12,24 @@ export const clearHeroes = () => {
   };
 };
 
-export const addHero = (array) => {
+export const addHero = (data) => {
   return {
     type: 'ADD_HERO',
-    array,
+    data,
   };
 };
 
-export const addActiveHero = (list) => {
+export const addActiveHero = (data) => {
   return {
     type: 'ADD_ACTIVE_HERO',
-    list,
+    data,
+  };
+};
+
+export const deleteActiveHero = (data) => {
+  return {
+    type: 'DELETE_ACTIVE_HERO',
+    data,
   };
 };
 

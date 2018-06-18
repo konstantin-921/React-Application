@@ -19,13 +19,9 @@ class ContainerHeroes extends Component {
     this.press = this.press.bind(this);
   }
 
-
   press() {
-    const className = (this.state.class === 'link off') ? 'link on' : 'link off';
     const { dispatch } = this.props;
-    dispatch(clearHeroes());
-    dispatch(request());
-    dispatch(getHeroes());
+    const className = (this.state.class === 'link off') ? dispatch(request()) && dispatch(getHeroes()) && 'link on' : dispatch(clearHeroes()) && 'link off';
     this.setState({ class: className });
   }
 
