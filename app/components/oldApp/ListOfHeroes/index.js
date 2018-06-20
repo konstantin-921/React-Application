@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { addActiveHero, deleteActiveHero } from '../../redux/action/index';
+import { addActiveHero, deleteActiveHero } from '../../../redux/action/index';
 import ItemHero from '../ItemHero/index';
 import Loader from '../Loader/index';
 
@@ -20,7 +20,6 @@ class ListOfHeroes extends React.Component {
     this.state = {
     };
     this.handleChangeOpen = this.handleChangeOpen.bind(this);
-    this.showAllState = this.showAllState.bind(this);
   }
 
   handleChangeOpen(flag, name) {
@@ -29,10 +28,6 @@ class ListOfHeroes extends React.Component {
     } else if (!flag) {
       this.props.deleteActiveHero(name);
     }
-  }
-
-  showAllState() {
-    console.log(this.props.filter.activeHero);
   }
 
   renderHeroes() {

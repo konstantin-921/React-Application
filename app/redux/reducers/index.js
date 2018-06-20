@@ -1,6 +1,33 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
+
+
+const initial = { login: '', password: '', redirectLogin: false };
+const reducer = (state = initial, action) => {
+  const { data } = action;
+  switch (action.type) {
+    case 'ENTER_LOGIN':
+      return {
+        ...state,
+        login: data,
+      };
+    case 'ENTER_PASSWORD':
+      return {
+        ...state,
+        password: data,
+      };
+    case 'REDIRECT_LOGIN':
+      return {
+        ...state,
+        redirectLogin: data,
+      };
+    default:
+      return state;
+  }
+};
 
 const initialState = { heroes: [], nameHeroes: [], loading: true };
+
 const filter = (state = initialState, action) => {
   const { data } = action;
   switch (action.type) {
@@ -37,6 +64,8 @@ const filter = (state = initialState, action) => {
 
 const rootReducer = combineReducers({
   filter,
+  reducer,
+  routing: routerReducer,
 });
 
 export default rootReducer;

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import ActiveHero from '../ActiveHero/index';
-import { getHeroes, request, clearHeroes } from '../../redux/action/index';
+import { getHeroes, request, clearHeroes } from '../../../redux/action';
 import ListOfHeroes from '../ListOfHeroes/index';
 
 const mapStateToProps = ({ filter }) => ({
