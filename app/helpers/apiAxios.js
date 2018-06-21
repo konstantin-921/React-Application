@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // const token = localStorage.getItem('token.id');
 function ApiAxios() {
-  // axios.defaults.headers.common.Authorization = `bearer ${localStorage.getItem('token.id')}`;
+  axios.defaults.headers.common.Authorization = `bearer ${localStorage.getItem('token.id')}`;
   this.get = (url) => {
     return axios.get(url);
   };
