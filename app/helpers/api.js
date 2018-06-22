@@ -1,15 +1,20 @@
 import axios from 'axios';
-// import history from 'history';
 
-// const token = localStorage.getItem('token.id');
-function ApiAxios() {
+function Api() {
   axios.defaults.headers.common.Authorization = `bearer ${localStorage.getItem('token.id')}`;
   this.get = (url) => {
     return axios.get(url);
   };
 
-  this.post = (url) => {
-    return axios.post(url);
+  this.post = (url, data) => {
+    return axios({
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      url,
+      data: JSON.stringify(data),
+    });
   };
 
   this.put = (url) => {
@@ -21,9 +26,5 @@ function ApiAxios() {
   };
 }
 
-// if (!token && history.location !== '/') {
-//   history.push('/');
-// }
-
-const apiAxios = new ApiAxios();
-export default apiAxios;
+const api = new Api();
+export default api;

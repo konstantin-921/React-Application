@@ -1,35 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { enterLogin, enterPassword, logining } from '../../redux/action/index';
-// import apiAxios from '../../helpers/apiAxios';
+import { Redirect } from 'react-router-dom';
+import { logining } from '../../../redux/action';
+import FormRegistration from '../FormRegistration';
 
 const mapStateToProps = ({ reducer }) => ({
   reducer,
 });
 const mapDispatchToProps = dispatch => ({
-  enterLogin: data => dispatch(enterLogin(data)),
-  enterPassword: data => dispatch(enterPassword(data)),
   logining: (username, userpass) => dispatch(logining(username, userpass)),
 });
 
 class FormLogin extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      login: '',
+      password: '',
+      visibleRegistration: false,
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   handleLogin(event) {
-    this.props.enterLogin(event.target.value);
+    this.setState({ login: event.target.value });
   }
   handlePassword(event) {
-    this.props.enterPassword(event.target.value);
+    this.setState({ password: event.target.value });
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.props.logining(this.props.reducer.login, this.props.reducer.password);
+    this.props.logining(this.state.login, this.state.password);
+  }
+  handleClick(event) {
+    event.preventDefault();
+    this.setState({ visibleRegistration: !this.state.visibleRegistration });
   }
   render() {
+    if (this.props.reducer.redirectLogin) {
+      return <Redirect to="/mainpage" />;
+    }
+    const formSignUp = this.state.visibleRegistration ? <FormRegistration /> : null;
     return (
       <div>
         <form onSubmit={this.handleSubmit} className="signIn-form">
@@ -37,18 +50,20 @@ class FormLogin extends React.Component {
             name="login"
             type="text"
             placeholder="login"
-            value={this.props.login}
+            value={this.state.login}
             onChange={this.handleLogin}
           />
           <input
             name="pass"
             type="text"
             placeholder="password"
-            value={this.props.password}
+            value={this.state.password}
             onChange={this.handlePassword}
           />
-          <button id="btn">Sign in</button>
+          <button>Sign in</button>
+          <button onClick={this.handleClick}>Sign up</button>
         </form>
+        {formSignUp}
       </div>
     );
   }

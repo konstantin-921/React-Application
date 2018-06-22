@@ -1,20 +1,8 @@
 import axios from 'axios';
 import help from '../../helpers/helperLogin';
-import apiAxios from '../../helpers/apiAxios';
+import api from '../../helpers/api';
 
-export const enterLogin = (data) => {
-  return {
-    type: 'ENTER_LOGIN',
-    data,
-  };
-};
-
-export const enterPassword = (data) => {
-  return {
-    type: 'ENTER_PASSWORD',
-    data,
-  };
-};
+const localhost = 'http://localhost:3000';
 
 export const redirectLogin = (data) => {
   return {
@@ -28,7 +16,7 @@ export function logining(username, userpass) {
     username,
     userpass,
   };
-  const url = new URL('http://localhost:3000/auth/login');
+  const url = new URL(`${localhost}/auth/login`);
   url.search = new URLSearchParams(userData);
   return (dispatch) => {
     return fetch(url)
@@ -38,14 +26,30 @@ export function logining(username, userpass) {
       .then((response) => {
         if (!response.token) {
           console.log(response);
+        } else {
+          api.post(`${localhost}/auth/secret`)
+            .then(help.checkStatus)
+            .then(() => dispatch(redirectLogin(true)))
+            .catch((error) => {
+              console.log(error);
+            });
         }
-        apiAxios.post('http://localhost:3000/auth/secret')
-          .then(help.checkStatus)
-          .then(() => dispatch(redirectLogin(true)))
-          .catch((error) => {
-            console.log(error);
-          });
       })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+export function registration(username, userpass, useremail) {
+  const userSignUp = {
+    username,
+    userpass,
+    useremail,
+  };
+  return () => {
+    return api.post(`${localhost}/users`, userSignUp)
+      .then(help.checkStatus)
       .catch((error) => {
         console.log(error);
       });

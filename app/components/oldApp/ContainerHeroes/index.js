@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import ReactDom from 'react-dom';
+// import ReactDom from 'react-dom';
 import ActiveHero from '../ActiveHero/index';
 import { getHeroes, request, clearHeroes } from '../../../redux/action';
-import ListOfHeroes from '../ListOfHeroes/index';
+// import ListOfHeroes from '../ListOfHeroes/index';
 
 const mapStateToProps = ({ filter }) => ({
   filter,
@@ -29,13 +29,13 @@ class ContainerHeroes extends Component {
     const { color } = this.props;
     const linkStyle = { color };
     const text = (this.state.class === 'link off') ? this.state.welcome : 'Goodbye and good luck!';
-    const list = (this.state.class === 'link off') ? null : (
-      <main>
-        {ReactDom.createPortal(
-          <ListOfHeroes loading={this.props.filter.loading} />,
-          document.getElementById('portal'),
-        )}
-      </main>);
+    const list = (this.state.class === 'link off') ? null : null;
+    // <main>
+    //   {ReactDom.createPortal(
+    //     <ListOfHeroes loading={this.props.filter.loading} />,
+    //     document.getElementById('portal'),
+    //   )}
+    // </main>
     return (
       <div style={{ overflow: 'hidden', height: 200 }}>
         <a href="/#" onClick={this.press} className={this.state.class} style={linkStyle}>{text}</a>
