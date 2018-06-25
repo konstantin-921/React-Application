@@ -1,9 +1,15 @@
 import axios from 'axios';
 
 function Api() {
-  axios.defaults.headers.common.Authorization = `bearer ${localStorage.getItem('token.id')}`;
   this.get = (url) => {
-    return axios.get(url);
+    return axios({
+      method: 'get',
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `bearer ${localStorage.getItem('token.id') || null}`,
+      },
+    });
   };
 
   this.post = (url, data) => {
@@ -11,6 +17,7 @@ function Api() {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `bearer ${localStorage.getItem('token.id') || null}`,
       },
       url,
       data: JSON.stringify(data),

@@ -1,8 +1,14 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 
 
-const initial = { login: '', password: '', redirectLogin: false };
+const initial = {
+  login: '',
+  password: '',
+  redirectLogin: false,
+  posts: [],
+  friendsPosts: [],
+  isFetching: false,
+};
 const reducer = (state = initial, action) => {
   const { data } = action;
   switch (action.type) {
@@ -10,6 +16,23 @@ const reducer = (state = initial, action) => {
       return {
         ...state,
         redirectLogin: data,
+      };
+    case 'GET_POSTS':
+      return {
+        ...state,
+        posts: data,
+        isFetching: false,
+      };
+    case 'GET_FRIENDS_POSTS':
+      return {
+        ...state,
+        friendsPosts: data,
+        isFetching: false,
+      };
+    case 'IS_FETCHING':
+      return {
+        ...state,
+        isFetching: true,
       };
     default:
       return state;
@@ -55,7 +78,6 @@ const filter = (state = initialState, action) => {
 const rootReducer = combineReducers({
   filter,
   reducer,
-  routing: routerReducer,
 });
 
 export default rootReducer;

@@ -25,10 +25,10 @@ class FormLogin extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleLogin(event) {
-    this.setState({ login: event.target.value });
+    this.setState({ ...this.state, login: event.target.value });
   }
   handlePassword(event) {
-    this.setState({ password: event.target.value });
+    this.setState({ ...this.state, password: event.target.value });
   }
   handleSubmit(event) {
     event.preventDefault();

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import help from '../../helpers/helperLogin';
 import api from '../../helpers/api';
 
@@ -8,6 +7,26 @@ export const redirectLogin = (data) => {
   return {
     type: 'REDIRECT_LOGIN',
     data,
+  };
+};
+
+export const posts = (data) => {
+  return {
+    type: 'GET_POSTS',
+    data,
+  };
+};
+
+export const friensPost = (data) => {
+  return {
+    type: 'GET_FRIENDS_POSTS',
+    data,
+  };
+};
+
+export const isFetching = () => {
+  return {
+    type: 'IS_FETCHING',
   };
 };
 
@@ -25,15 +44,14 @@ export function logining(username, userpass) {
       .then(help.saveToken)
       .then((response) => {
         if (!response.token) {
-          console.log(response);
-        } else {
-          api.post(`${localhost}/auth/secret`)
-            .then(help.checkStatus)
-            .then(() => dispatch(redirectLogin(true)))
-            .catch((error) => {
-              console.log(error);
-            });
+          return console.log(response);
         }
+        return api.post(`${localhost}/auth/secret`)
+          .then(help.checkStatus)
+          .then(() => dispatch(redirectLogin(true)))
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -56,43 +74,34 @@ export function registration(username, userpass, useremail) {
   };
 }
 
-export const request = () => {
-  return {
-    type: 'REQUEST',
+export function getMyPost() {
+  const data = {
+    id: localStorage['user.id'],
   };
-};
-
-export const clearHeroes = () => {
-  return {
-    type: 'CLEAR_HEROES',
-  };
-};
-
-export const addHero = (data) => {
-  return {
-    type: 'ADD_HERO',
-    data,
-  };
-};
-
-export const addActiveHero = (data) => {
-  return {
-    type: 'ADD_ACTIVE_HERO',
-    data,
-  };
-};
-
-export const deleteActiveHero = (data) => {
-  return {
-    type: 'DELETE_ACTIVE_HERO',
-    data,
-  };
-};
-
-export function getHeroes() {
+  const url = new URL(`${localhost}/posts`);
+  url.search = new URLSearchParams(data);
   return (dispatch) => {
-    return axios.get('https://swapi.co/api/people/')
-      .then(response => dispatch(addHero(response.data.results)))
+    return api.get(url)
+      .then(help.checkStatus)
+      .then(response => dispatch(posts(response.data)))
+      .then(() => dispatch(isFetching()))
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+export function getFriendsPost() {
+  const data = {
+    id: localStorage['user.id'],
+  };
+  const url = new URL(`${localhost}/posts/friendsposts`);
+  url.search = new URLSearchParams(data);
+  return (dispatch) => {
+    return api.get(url)
+      .then(help.checkStatus)
+      .then(response => dispatch(friensPost(response.data)))
+      .then(() => dispatch(isFetching()))
       .catch((error) => {
         console.log(error);
       });

@@ -1,25 +1,25 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import MainPage from '../components/privatPage/MainPage';
 import store from './store';
 import App from '../components/App';
 
-const history = syncHistoryWithStore(createBrowserHistory(), store);
+const history = createBrowserHistory();
 
 const Root = () => {
   return (
     <Provider store={store}>
-      <Router history={history}>
+      <ConnectedRouter history={history}>
         <div>
           <Switch>
-            <Route exact path="/mainpage" component={MainPage} />
+            <Route path="/mainpage" component={MainPage} />
             <Route path="/" component={App} />
           </Switch>
         </div>
-      </Router>
+      </ConnectedRouter>
     </Provider>
   );
 };
