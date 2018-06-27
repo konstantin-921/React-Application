@@ -1,5 +1,5 @@
 import help from '../../helpers/helperLogin';
-import api from '../../helpers/api';
+import api from '../../service/api';
 
 const localhost = 'http://localhost:3000';
 
@@ -24,9 +24,10 @@ export const friensPost = (data) => {
   };
 };
 
-export const isFetching = () => {
+export const addUserMessage = (data) => {
   return {
-    type: 'IS_FETCHING',
+    type: 'ADD_USER_MESSAGE',
+    data,
   };
 };
 
@@ -44,7 +45,7 @@ export function logining(username, userpass) {
       .then(help.saveToken)
       .then((response) => {
         if (!response.token) {
-          return console.log(response);
+          return dispatch(addUserMessage(response.message));
         }
         return api.post(`${localhost}/auth/secret`)
           .then(help.checkStatus)
@@ -84,7 +85,6 @@ export function getMyPost() {
     return api.get(url)
       .then(help.checkStatus)
       .then(response => dispatch(posts(response.data)))
-      .then(() => dispatch(isFetching()))
       .catch((error) => {
         console.log(error);
       });
@@ -101,7 +101,6 @@ export function getFriendsPost() {
     return api.get(url)
       .then(help.checkStatus)
       .then(response => dispatch(friensPost(response.data)))
-      .then(() => dispatch(isFetching()))
       .catch((error) => {
         console.log(error);
       });

@@ -19,12 +19,9 @@ class FriendsPosts extends React.PureComponent {
     this.props.getFriendsPost();
   }
   renderPost() {
-    if (this.props.reducer.isFetching) {
-      return this.props.reducer.friendsPosts.map((post) => {
-        return <Post key={post.id} post={post} />;
-      });
-    }
-    return null;
+    return this.props.reducer.friendsPosts.map((post) => {
+      return <Post key={post.id} post={post} />;
+    });
   }
   render() {
     const posts = this.renderPost();

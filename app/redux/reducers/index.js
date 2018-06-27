@@ -7,7 +7,7 @@ const initial = {
   redirectLogin: false,
   posts: [],
   friendsPosts: [],
-  isFetching: false,
+  userMessage: '',
 };
 const reducer = (state = initial, action) => {
   const { data } = action;
@@ -21,18 +21,16 @@ const reducer = (state = initial, action) => {
       return {
         ...state,
         posts: data,
-        isFetching: false,
       };
     case 'GET_FRIENDS_POSTS':
       return {
         ...state,
         friendsPosts: data,
-        isFetching: false,
       };
-    case 'IS_FETCHING':
+    case 'ADD_USER_MESSAGE':
       return {
         ...state,
-        isFetching: true,
+        userMessage: data,
       };
     default:
       return state;

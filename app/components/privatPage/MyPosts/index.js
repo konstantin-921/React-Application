@@ -20,12 +20,9 @@ class MyPosts extends React.Component {
     this.props.getMyPost();
   }
   renderPost() {
-    if (this.props.reducer.isFetching) {
-      return this.props.reducer.posts.map((post) => {
-        return <Post key={post.id} post={post} />;
-      });
-    }
-    return null;
+    return this.props.reducer.posts.map((post) => {
+      return <Post key={post.id} post={post} />;
+    });
   }
   render() {
     const posts = this.renderPost();

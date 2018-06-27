@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logining } from '../../../redux/action';
 import FormRegistration from '../FormRegistration';
+import UserMessage from '../../../components/renderComponent/UserMessage';
 
 const mapStateToProps = ({ reducer }) => ({
   reducer,
@@ -18,12 +19,19 @@ class FormLogin extends React.Component {
       login: '',
       password: '',
       visibleRegistration: false,
+      userMessage: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.reducer.userMessage !== this.props.reducer.userMessage) {
+      this.setState({ userMessage: nextProps.reducer.userMessage });
+    }
+  }
+
   handleLogin(event) {
     this.setState({ ...this.state, login: event.target.value });
   }
@@ -39,6 +47,8 @@ class FormLogin extends React.Component {
     this.setState({ visibleRegistration: !this.state.visibleRegistration });
   }
   render() {
+    const stateMessage = this.state.userMessage;
+    const message = stateMessage ? <UserMessage data={stateMessage} flag /> : null;
     if (this.props.reducer.redirectLogin) {
       return <Redirect to="/mainpage" />;
     }
@@ -64,6 +74,7 @@ class FormLogin extends React.Component {
           <button onClick={this.handleClick}>Sign up</button>
         </form>
         {formSignUp}
+        {message}
       </div>
     );
   }
