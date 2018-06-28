@@ -6,6 +6,7 @@ import FormLogin from '../../openPage/FormLogin';
 import MyPosts from '../../privatPage/MyPosts';
 import FriendsPosts from '../../privatPage/FriendsPosts';
 import Modal from '../../renderComponent/Modal';
+import SearchInput from '../SearchInput';
 
 const mapStateToProps = ({ reducer }) => ({
   reducer,
@@ -35,6 +36,7 @@ class MainPage extends React.PureComponent {
       <React.Fragment>
         <div style={style.h1}>My App
         </div>
+        <SearchInput />
         <div style={style.containerBlock}>
           <div style={style.blockLeft}>
             <button

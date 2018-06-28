@@ -13,7 +13,7 @@ class Post extends React.PureComponent {
           <div style={style.title}>{title}</div>
           <div style={style.date}>{date}</div>
         </div>
-        <div>{content}</div>
+        <div style={style.content}>{content}</div>
       </li>
     );
   }

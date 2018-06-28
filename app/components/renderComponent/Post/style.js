@@ -18,6 +18,9 @@ const style = {
     top: 0,
     right: '20px',
   },
+  content: {
+    backgroundColor: 'rgb(220, 245, 220)',
+  },
 };
 
 export default style;
