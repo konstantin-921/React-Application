@@ -7,7 +7,8 @@ const initial = {
   redirectLogin: false,
   posts: [],
   friendsPosts: [],
-  userMessage: '',
+  userMessageLogin: '',
+  userMessageRegistration: '',
 };
 const reducer = (state = initial, action) => {
   const { data } = action;
@@ -27,10 +28,21 @@ const reducer = (state = initial, action) => {
         ...state,
         friendsPosts: data,
       };
-    case 'ADD_USER_MESSAGE':
+    case 'ADD_USER_MESSAGE_LOGIN':
       return {
         ...state,
-        userMessage: data,
+        userMessageLogin: data,
+      };
+    case 'ADD_USER_MESSAGE_REGISTRATION':
+      return {
+        ...state,
+        userMessageRegistration: data,
+      };
+    case 'HIDE_USER_MESSAGE':
+      return {
+        ...state,
+        userMessageLogin: '',
+        userMessageRegistration: '',
       };
     default:
       return state;

@@ -27,11 +27,10 @@ class FormLogin extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.reducer.userMessage !== this.props.reducer.userMessage) {
-      this.setState({ userMessage: nextProps.reducer.userMessage });
+    if (nextProps.reducer.userMessageLogin !== this.props.reducer.userMessageLogin) {
+      this.setState({ userMessage: nextProps.reducer.userMessageLogin });
     }
   }
-
   handleLogin(event) {
     this.setState({ ...this.state, login: event.target.value });
   }
@@ -44,12 +43,12 @@ class FormLogin extends React.Component {
   }
   handleClick(event) {
     event.preventDefault();
-    this.setState({ visibleRegistration: !this.state.visibleRegistration });
+    this.setState({ ...this.state, visibleRegistration: !this.state.visibleRegistration });
   }
   render() {
     const stateMessage = this.state.userMessage;
     const message = stateMessage ? <UserMessage data={stateMessage} flag /> : null;
-    if (this.props.reducer.redirectLogin) {
+    if (this.props.reducer.redirectLogin && localStorage['token.id']) {
       return <Redirect to="/mainpage" />;
     }
     const formSignUp = this.state.visibleRegistration ? <FormRegistration /> : null;

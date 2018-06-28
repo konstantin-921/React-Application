@@ -1,7 +1,8 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import style from './style';
+import FormLogin from '../../openPage/FormLogin';
 import MyPosts from '../../privatPage/MyPosts';
 import FriendsPosts from '../../privatPage/FriendsPosts';
 import Modal from '../../renderComponent/Modal';
@@ -13,6 +14,7 @@ const mapStateToProps = ({ reducer }) => ({
 class MainPage extends React.PureComponent {
   state = {
     show: false,
+    redirectToReferrer: false,
   };
   openModal = () => {
     this.setState({ ...this.state, show: !this.state.show });
@@ -20,8 +22,15 @@ class MainPage extends React.PureComponent {
   closeModal = () => {
     this.setState({ ...this.state, show: false });
   }
+  logOut = () => {
+    localStorage.clear();
+    this.setState({ ...this.state, redirectToReferrer: true });
+  }
   close
   render() {
+    if (this.state.redirectToReferrer) {
+      return <Redirect to="/" />;
+    }
     return (
       <React.Fragment>
         <div style={style.h1}>My App
@@ -54,8 +63,15 @@ class MainPage extends React.PureComponent {
             >
               Add new post
             </button>
+            <button
+              style={{ ...style.blockLeft.btn, color: 'red' }}
+              onClick={this.logOut}
+            >
+              Log Out
+            </button>
           </div>
           <div style={style.blockRight}>
+            <Route exact path="/" component={FormLogin} />
             <Route path="/mainpage/myposts" component={MyPosts} />
             <Route path="/mainpage/friendsposts" component={FriendsPosts} />
           </div>

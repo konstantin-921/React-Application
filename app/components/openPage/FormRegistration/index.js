@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { registration } from '../../../redux/action';
+import { registration, addUserMessageRegistration } from '../../../redux/action';
+import UserMessage from '../../../components/renderComponent/UserMessage';
 
 const mapStateToProps = ({ reducer }) => ({
   reducer,
@@ -8,6 +9,7 @@ const mapStateToProps = ({ reducer }) => ({
 const mapDispatchToProps = dispatch => ({
   registration: (username, userpass, useremail) =>
     dispatch(registration(username, userpass, useremail)),
+  addUserMessageRegistration: data => dispatch(addUserMessageRegistration(data)),
 });
 
 class FormRegistration extends React.Component {
@@ -17,20 +19,26 @@ class FormRegistration extends React.Component {
       login: '',
       password: '',
       email: '',
+      userMessage: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.reducer.userMessageRegistration !== this.props.reducer.userMessageRegistration) {
+      this.setState({ userMessage: nextProps.reducer.userMessageRegistration });
+    }
+  }
   handleLogin(event) {
-    this.setState({ login: event.target.value });
+    this.setState({ ...this.state, login: event.target.value });
   }
   handlePassword(event) {
-    this.setState({ password: event.target.value });
+    this.setState({ ...this.state, password: event.target.value });
   }
   handleEmail(event) {
-    this.setState({ email: event.target.value });
+    this.setState({ ...this.state, email: event.target.value });
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -40,10 +48,14 @@ class FormRegistration extends React.Component {
       const useremail = this.state.email;
       this.props.registration(username, userpass, useremail);
     } else {
-      console.log('Все поля должны быть заполнены');
+      const data = 'Все поля должны быть заполнены';
+      this.props.addUserMessageRegistration(data);
     }
   }
   render() {
+    const stateMessage = this.state.userMessage;
+    const flag = (this.state.userMessage === 'Successful registration!') ? '' : true;
+    const message = stateMessage ? <UserMessage data={stateMessage} flag={flag} /> : null;
     return (
       <div style={{ marginTop: 10 }}>
         <form onSubmit={this.handleSubmit} className="signIn-form">
@@ -70,6 +82,7 @@ class FormRegistration extends React.Component {
           />
           <button id="btn">Sign up</button>
         </form>
+        {message}
       </div>
     );
   }

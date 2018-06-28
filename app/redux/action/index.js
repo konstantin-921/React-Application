@@ -24,10 +24,23 @@ export const friensPost = (data) => {
   };
 };
 
-export const addUserMessage = (data) => {
+export const addUserMessageLogin = (data) => {
   return {
-    type: 'ADD_USER_MESSAGE',
+    type: 'ADD_USER_MESSAGE_LOGIN',
     data,
+  };
+};
+
+export const addUserMessageRegistration = (data) => {
+  return {
+    type: 'ADD_USER_MESSAGE_REGISTRATION',
+    data,
+  };
+};
+
+export const hideUserMessage = () => {
+  return {
+    type: 'HIDE_USER_MESSAGE',
   };
 };
 
@@ -45,7 +58,7 @@ export function logining(username, userpass) {
       .then(help.saveToken)
       .then((response) => {
         if (!response.token) {
-          return dispatch(addUserMessage(response.message));
+          return dispatch(addUserMessageLogin(response.message));
         }
         return api.post(`${localhost}/auth/secret`)
           .then(help.checkStatus)
@@ -66,9 +79,14 @@ export function registration(username, userpass, useremail) {
     userpass,
     useremail,
   };
-  return () => {
+  return (dispatch) => {
     return api.post(`${localhost}/users`, userSignUp)
       .then(help.checkStatus)
+      .then((response) => {
+        console.log(response);
+        const data = response.data.error || response.data;
+        return dispatch(addUserMessageRegistration(data));
+      })
       .catch((error) => {
         console.log(error);
       });
