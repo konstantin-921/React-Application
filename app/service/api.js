@@ -24,12 +24,20 @@ function Api() {
     });
   };
 
-  this.put = (url) => {
-    return axios.put(url);
+  this.delete = (url, data) => {
+    return axios({
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `bearer ${localStorage.getItem('token.id') || null}`,
+      },
+      url,
+      data: JSON.stringify(data),
+    });
   };
 
-  this.delete = (url) => {
-    return axios.delete(url);
+  this.put = (url) => {
+    return axios.put(url);
   };
 }
 
