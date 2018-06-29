@@ -44,6 +44,12 @@ export const hideUserMessage = () => {
   };
 };
 
+export const changeFollowing = () => {
+  return {
+    type: 'CHANGE_FOLLOWING',
+  };
+};
+
 export function logining(username, userpass) {
   const userData = {
     username,

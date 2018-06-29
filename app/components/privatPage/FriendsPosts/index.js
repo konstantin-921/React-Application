@@ -10,13 +10,18 @@ const mapDispatchToProps = dispatch => ({
   getFriendsPost: () => dispatch(getFriendsPost()),
 });
 
-class FriendsPosts extends React.PureComponent {
+class FriendsPosts extends React.Component {
   constructor(props) {
     super(props);
     this.renderPost = this.renderPost.bind(this);
   }
   componentDidMount() {
     this.props.getFriendsPost();
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.reducer.followButton !== this.props.reducer.followButton) {
+      this.props.getFriendsPost();
+    }
   }
   renderPost() {
     return this.props.reducer.friendsPosts.map((post) => {
