@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logining } from '../../../redux/action';
-import FormRegistration from '../FormRegistration';
+// import FormRegistration from '../FormRegistration';
 import UserMessage from '../../../components/renderComponent/UserMessage';
 
 const mapStateToProps = ({ reducer }) => ({
@@ -18,7 +18,7 @@ class FormLogin extends React.Component {
     this.state = {
       login: '',
       password: '',
-      visibleRegistration: false,
+      redirectRegistration: false,
       userMessage: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,10 +32,10 @@ class FormLogin extends React.Component {
     }
   }
   handleLogin(event) {
-    this.setState({ ...this.state, login: event.target.value });
+    this.setState({ login: event.target.value });
   }
   handlePassword(event) {
-    this.setState({ ...this.state, password: event.target.value });
+    this.setState({ password: event.target.value });
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -43,15 +43,13 @@ class FormLogin extends React.Component {
   }
   handleClick(event) {
     event.preventDefault();
-    this.setState({ ...this.state, visibleRegistration: !this.state.visibleRegistration });
+    this.setState({ redirectRegistration: true });
   }
   render() {
     const stateMessage = this.state.userMessage;
     const message = stateMessage ? <UserMessage data={stateMessage} flag /> : null;
-    if (this.props.reducer.redirectLogin && localStorage['token.id']) {
-      return <Redirect to="/mainpage" />;
-    }
-    const formSignUp = this.state.visibleRegistration ? <FormRegistration /> : null;
+    const mainPage = this.props.reducer.redirectLogin && localStorage['token.id'] ? <Redirect to="/mainpage" /> : null;
+    const formSignUp = this.state.redirectRegistration ? <Redirect to="/registration" /> : null;
     return (
       <div>
         <form onSubmit={this.handleSubmit} className="signIn-form">
@@ -72,6 +70,7 @@ class FormLogin extends React.Component {
           <button>Sign in</button>
           <button onClick={this.handleClick}>Sign up</button>
         </form>
+        {mainPage}
         {formSignUp}
         {message}
       </div>

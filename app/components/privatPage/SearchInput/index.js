@@ -31,6 +31,7 @@ class SearchInput extends React.Component {
       });
   }
   hundlerInput = (event) => {
+    console.log('hundlerInput');
     this.setState({ searchValue: event.target.value });
     this.findUser(this.state.searchValue);
   }

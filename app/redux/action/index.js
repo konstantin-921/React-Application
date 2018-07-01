@@ -89,7 +89,6 @@ export function registration(username, userpass, useremail) {
     return api.post(`${localhost}/users`, userSignUp)
       .then(help.checkStatus)
       .then((response) => {
-        console.log(response);
         const data = response.data.error || response.data;
         return dispatch(addUserMessageRegistration(data));
       })

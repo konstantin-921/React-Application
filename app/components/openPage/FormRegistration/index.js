@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { registration, addUserMessageRegistration } from '../../../redux/action';
 import UserMessage from '../../../components/renderComponent/UserMessage';
 
@@ -20,6 +21,7 @@ class FormRegistration extends React.Component {
       password: '',
       email: '',
       userMessage: '',
+      redirectLogin: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -32,13 +34,13 @@ class FormRegistration extends React.Component {
     }
   }
   handleLogin(event) {
-    this.setState({ ...this.state, login: event.target.value });
+    this.setState({ login: event.target.value });
   }
   handlePassword(event) {
-    this.setState({ ...this.state, password: event.target.value });
+    this.setState({ password: event.target.value });
   }
   handleEmail(event) {
-    this.setState({ ...this.state, email: event.target.value });
+    this.setState({ email: event.target.value });
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -48,12 +50,18 @@ class FormRegistration extends React.Component {
       const useremail = this.state.email;
       this.props.registration(username, userpass, useremail);
     } else {
-      const data = 'Все поля должны быть заполнены';
+      const data = 'All fields must be filled in';
       this.props.addUserMessageRegistration(data);
     }
   }
+  returnToLogin = () => {
+    this.setState({ redirectLogin: true });
+  }
   render() {
     const stateMessage = this.state.userMessage;
+    if (this.state.redirectLogin) {
+      return <Redirect to="/login" />;
+    }
     const flag = (this.state.userMessage === 'Successful registration!') ? '' : true;
     const message = stateMessage ? <UserMessage data={stateMessage} flag={flag} /> : null;
     return (
@@ -83,6 +91,11 @@ class FormRegistration extends React.Component {
           <button id="btn">Sign up</button>
         </form>
         {message}
+        <button
+          style={{ marginTop: '5px', color: 'darkblue' }}
+          onClick={this.returnToLogin}
+        >Return to login
+        </button>
       </div>
     );
   }

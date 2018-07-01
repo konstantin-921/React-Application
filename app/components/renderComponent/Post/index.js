@@ -2,9 +2,6 @@ import React from 'react';
 import style from './style';
 
 class Post extends React.PureComponent {
-  // constructor(props) {
-  //   super(props);
-  // }
   render() {
     const { content, date, title } = this.props.post;
     return (

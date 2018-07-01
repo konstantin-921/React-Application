@@ -18,19 +18,19 @@ class MainPage extends React.PureComponent {
     redirectToReferrer: false,
   };
   openModal = () => {
-    this.setState({ ...this.state, show: !this.state.show });
+    this.setState({ show: !this.state.show });
   }
   closeModal = () => {
-    this.setState({ ...this.state, show: false });
+    this.setState({ show: false });
   }
   logOut = () => {
     localStorage.clear();
-    this.setState({ ...this.state, redirectToReferrer: true });
+    this.setState({ redirectToReferrer: true });
   }
   close
   render() {
     if (this.state.redirectToReferrer) {
-      return <Redirect to="/" />;
+      return <Redirect to="/login" />;
     }
     return (
       <React.Fragment>

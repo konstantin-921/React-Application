@@ -11,10 +11,10 @@ class Modal extends React.PureComponent {
     content: '',
   }
   handleTitle = (event) => {
-    this.setState({ ...this.state, title: event.target.value });
+    this.setState({ title: event.target.value });
   }
   handleContent = (event) => {
-    this.setState({ ...this.state, content: event.target.value });
+    this.setState({ content: event.target.value });
   }
   handleSubmit = (event) => {
     event.preventDefault();
