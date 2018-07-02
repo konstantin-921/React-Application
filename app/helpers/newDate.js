@@ -5,7 +5,7 @@ const currentDate = () => {
   const hours = date.getHours();
   let minutes = date.getMinutes();
   if (minutes <= 9) {
-    minutes = `0 ${minutes}`;
+    minutes = `0${minutes}`;
   }
   const newDate = `${DAYNAMES[day !== 0 ? day - 1 : 6]} ${hours}:${minutes}`;
   return newDate;
