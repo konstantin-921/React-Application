@@ -63,7 +63,7 @@ class FormRegistration extends React.Component {
     if (this.state.redirectLogin) {
       return <Redirect to="/login" />;
     }
-    const flag = (this.state.userMessage === 'Successful registration!') ? '' : true;
+    const flag = this.state.userMessage !== 'Successful registration!';
     const message = stateMessage ? <UserMessage data={stateMessage} flag={flag} /> : null;
     return (
       <div style={{ marginTop: 10 }}>
