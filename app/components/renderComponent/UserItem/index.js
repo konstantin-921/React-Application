@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { changeFollowing } from '../../../redux/action';
 import style from './style';
 import help from '../../../helpers/helperLogin';
@@ -83,5 +84,11 @@ class UserItem extends React.PureComponent {
     );
   }
 }
+
+UserItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  changeFollowing: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserItem);

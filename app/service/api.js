@@ -37,7 +37,14 @@ function Api() {
   };
 
   this.put = (url) => {
-    return axios.put(url);
+    return axios.put({
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `bearer ${localStorage.getItem('token.id') || null}`,
+      },
+      url,
+    });
   };
 }
 

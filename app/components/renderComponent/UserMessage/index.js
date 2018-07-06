@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { hideUserMessage } from '../../../redux/action';
 import style from './style';
 
@@ -23,5 +24,11 @@ class UserMessage extends React.PureComponent {
     );
   }
 }
+
+UserMessage.propTypes = {
+  hideUserMessage: PropTypes.func.isRequired,
+  data: PropTypes.string.isRequired,
+  flag: PropTypes.bool.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMessage);

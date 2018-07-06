@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logining } from '../../../redux/action';
-// import FormRegistration from '../FormRegistration';
 import UserMessage from '../../../components/renderComponent/UserMessage';
 
 const mapStateToProps = ({ reducer }) => ({
@@ -48,7 +48,7 @@ class FormLogin extends React.Component {
   render() {
     const stateMessage = this.state.userMessage;
     const message = stateMessage ? <UserMessage data={stateMessage} flag /> : null;
-    const mainPage = this.props.reducer.redirectLogin && localStorage['token.id'] ? <Redirect to="/mainpage" /> : null;
+    const mainPage = this.props.reducer.redirectLogin && localStorage['token.id'] && localStorage['token.id'] !== 'undefined' ? <Redirect to="/mainpage" /> : null;
     const formSignUp = this.state.redirectRegistration ? <Redirect to="/registration" /> : null;
     return (
       <div>
@@ -77,5 +77,13 @@ class FormLogin extends React.Component {
     );
   }
 }
+
+FormLogin.propTypes = {
+  logining: PropTypes.func.isRequired,
+  reducer: PropTypes.shape({
+    userMessageLogin: PropTypes.string.isRequired,
+    redirectLogin: PropTypes.bool.isRequired,
+  }).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormLogin);

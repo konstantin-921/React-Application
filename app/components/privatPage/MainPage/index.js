@@ -1,16 +1,11 @@
 import React from 'react';
 import { Route, Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 import style from './style';
 import FormLogin from '../../openPage/FormLogin';
 import MyPosts from '../../privatPage/MyPosts';
 import FriendsPosts from '../../privatPage/FriendsPosts';
 import Modal from '../../renderComponent/Modal';
 import SearchInput from '../SearchInput';
-
-const mapStateToProps = ({ reducer }) => ({
-  reducer,
-});
 
 class MainPage extends React.PureComponent {
   state = {
@@ -27,7 +22,6 @@ class MainPage extends React.PureComponent {
     localStorage.clear();
     this.setState({ redirectToReferrer: true });
   }
-  close
   render() {
     if (this.state.redirectToReferrer) {
       return <Redirect to="/login" />;
@@ -84,4 +78,4 @@ class MainPage extends React.PureComponent {
   }
 }
 
-export default connect(mapStateToProps)(MainPage);
+export default MainPage;

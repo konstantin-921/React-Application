@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { registration, addUserMessageRegistration } from '../../../redux/action';
@@ -100,5 +101,13 @@ class FormRegistration extends React.Component {
     );
   }
 }
+
+FormRegistration.propTypes = {
+  registration: PropTypes.func.isRequired,
+  addUserMessageRegistration: PropTypes.func.isRequired,
+  reducer: PropTypes.shape({
+    userMessageRegistration: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRegistration);
