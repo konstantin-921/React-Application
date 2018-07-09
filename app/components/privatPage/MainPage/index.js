@@ -1,7 +1,6 @@
 import React from 'react';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Route, Link, Redirect, Switch } from 'react-router-dom';
 import style from './style';
-import FormLogin from '../../openPage/FormLogin';
 import MyPosts from '../../privatPage/MyPosts';
 import FriendsPosts from '../../privatPage/FriendsPosts';
 import Modal from '../../renderComponent/Modal';
@@ -38,8 +37,8 @@ class MainPage extends React.PureComponent {
             >
               <Link
                 style={style.linkButton}
-                href="/mainpage/myposts"
-                to="/mainpage/myposts"
+                href="/my-posts"
+                to="/my-posts"
               >
                 My post
               </Link>
@@ -47,8 +46,8 @@ class MainPage extends React.PureComponent {
             <button style={style.blockLeft.btn}>
               <Link
                 style={style.linkButton}
-                href="/mainpage/friendsposts"
-                to="/mainpage/friendsposts"
+                href="/friends/posts"
+                to="/friends/posts"
               >
                 Post friends
               </Link>
@@ -67,9 +66,10 @@ class MainPage extends React.PureComponent {
             </button>
           </div>
           <div style={style.blockRight}>
-            <Route exact path="/" component={FormLogin} />
-            <Route path="/mainpage/myposts" component={MyPosts} />
-            <Route path="/mainpage/friendsposts" component={FriendsPosts} />
+            <Switch>
+              <Route path="/my-posts" component={MyPosts} />
+              <Route path="/friends/posts" component={FriendsPosts} />
+            </Switch>
           </div>
         </div>
         <Modal show={this.state.show} onClose={this.closeModal} />

@@ -48,7 +48,7 @@ class FormLogin extends React.Component {
   render() {
     const stateMessage = this.state.userMessage;
     const message = stateMessage ? <UserMessage data={stateMessage} flag /> : null;
-    const mainPage = this.props.reducer.redirectLogin && localStorage['token.id'] && localStorage['token.id'] !== 'undefined' ? <Redirect to="/mainpage" /> : null;
+    const mainPage = this.props.reducer.redirectLogin && localStorage['token.id'] && localStorage['token.id'] !== 'undefined' ? <Redirect to="/" /> : null;
     const formSignUp = this.state.redirectRegistration ? <Redirect to="/registration" /> : null;
     return (
       <div>

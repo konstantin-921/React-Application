@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import MainPage from '../components/privatPage/MainPage';
 import FormLogin from '../components/openPage/FormLogin';
 import store from './store';
 import App from '../components/App';
@@ -19,7 +18,6 @@ const Root = () => {
           <Switch>
             <Route path="/registration" component={FormRegistration} />
             <Route path="/login" component={FormLogin} />
-            <Route path="/mainpage" component={MainPage} />
             <Route path="/" component={App} />
           </Switch>
         </div>

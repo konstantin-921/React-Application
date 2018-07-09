@@ -1,9 +1,11 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
+import MainPage from '../privatPage/MainPage';
 
 const App = () => {
-  const storage = localStorage.getItem('token.id');
-  const startPage = (storage && storage !== 'undefined') ? <Redirect to="/mainpage" /> : <Redirect to="/login" />;
+  const token = localStorage.getItem('token.id');
+  const user = localStorage.getItem('user.id');
+  const startPage = (token && user && user !== 'undefined' && token !== 'undefined') ? <Route path="/" component={MainPage} /> : <Redirect to="/login" />;
   return (
     <div>
       {startPage}
